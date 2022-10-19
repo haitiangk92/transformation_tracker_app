@@ -1,6 +1,6 @@
 from kivymd.app import MDApp
 
-from welcome_screen import WelcomeScreen
+from screens.welcome_screen import WelcomeScreen
 
 
 class TransformationTrackerApp(MDApp):
