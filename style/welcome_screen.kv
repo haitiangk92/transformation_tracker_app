@@ -1,0 +1,62 @@
+<WelcomeScreen>
+    email: email
+    password: password
+
+    MDBoxLayout:
+        orientation: "vertical"
+        padding: 25, 50 #w,h
+        # size: root.width, root.height
+        size: 500, 700
+
+        MDSmartTile:
+            radius: 24
+            box_radius: [0, 0, 24, 24]
+            box_color: 1, 1, 1, .2
+            source: "assets/muscles.png"
+            pos_hint: {"center_x": .5, "center_y": .5}
+            size_hint: None, None
+            size: "160dp", "160dp"
+
+        MDLabel:
+            text:"Transformation Tracker"
+            font_size: 30
+            halign: "center"
+
+        MDLabel:
+            text: "Email"
+            font_size: 15
+
+        MDTextField:
+            id : email
+            multiline: False
+
+        MDLabel:
+            text: "Password"
+            font_size: 15
+
+        MDTextField:
+            id: password  
+            multiline: False
+            password: True
+        
+        MDRaisedButton:
+            on_press: root.btn_clicked()
+            text: "Login"
+            halign: "center"
+        
+        MDGridLayout:
+            cols: 2
+
+            MDLabel:   
+                text: "[u][ref=forgot]Forgot Password[/ref][/u]"
+                markup: True
+                on_ref_press: root.forgot_password()
+                color: 0.3,0.5,1,1
+                halign: "center"
+
+            MDLabel:   
+                text: "[u][ref=create]Create Account[/ref][/u]"
+                markup: True
+                on_ref_press: root.create_account()
+                color: 0.3,0.5,1,1
+                halign: "center"
