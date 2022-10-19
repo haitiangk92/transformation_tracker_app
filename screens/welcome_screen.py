@@ -8,7 +8,7 @@ class WelcomeScreen(Widget):
     email = ObjectProperty(None)
     password = ObjectProperty(None)
 
-    kv = Builder.load_file("style/welcome_screen.kv")
+    kv = Builder.load_file("styles/welcome_screen.kv")
 
     def btn_clicked(self):
         print(f"Email: {self.email.text}\nPassword: {self.password.text}\n")
