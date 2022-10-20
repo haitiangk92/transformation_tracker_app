@@ -1,13 +1,12 @@
-from kivymd.uix.widget import MDWidget
 from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
 from kivy.lang import Builder
 
 
-class WelcomeScreen(Screen):
+class LoginScreen(Screen):
 
     # kv file loader
-    Builder.load_file("styles/welcome_screen.kv")
+    Builder.load_file("styles/login_screen.kv")
 
     # kv file ids
     email = ObjectProperty(None)

@@ -1,4 +1,3 @@
-from kivymd.uix.widget import MDWidget
 from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
 from kivy.lang import Builder
@@ -23,7 +22,7 @@ class CreateAccountScreen(Screen):
         kv_ids = [self.email, self.password1,
                   self.password2, self.first_name, self.last_name]
 
-        screen = "Welcome" if len(
+        screen = "Login" if len(
             self.password1.text) > 3 and self.password2.text == self.password1.text else "CreateAccount"
 
         for id in kv_ids:
