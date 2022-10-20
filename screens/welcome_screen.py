@@ -1,14 +1,17 @@
-from kivy.uix.widget import Widget
+from kivymd.uix.widget import MDWidget
+from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
 from kivy.lang import Builder
 
 
-class WelcomeScreen(Widget):
+class WelcomeScreen(Screen):
 
+    # kv file loader
+    Builder.load_file("styles/welcome_screen.kv")
+
+    # kv file ids
     email = ObjectProperty(None)
     password = ObjectProperty(None)
-
-    kv = Builder.load_file("styles/welcome_screen.kv")
 
     def btn_clicked(self):
         print(f"Email: {self.email.text}\nPassword: {self.password.text}\n")

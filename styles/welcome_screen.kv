@@ -1,12 +1,15 @@
-<WelcomeScreen>
+<WelcomeScreen>    
+    name: "Welcome"
+
+    # Component ids 
     email: email
     password: password
 
     MDBoxLayout:
         orientation: "vertical"
-        padding: 25, 50 #w,h
-        # size: root.width, root.height
-        size: 500, 700
+        padding: 50, 50 #w,h
+        size: root.width, root.height
+        # size: 500, 700
 
         MDSmartTile:
             radius: 24
@@ -22,27 +25,42 @@
             font_size: 30
             halign: "center"
 
-        MDLabel:
-            text: "Email"
-            font_size: 15
+        MDBoxLayout:
+            orientation: "vertical"
+            padding: 0, 10 #w,h
+            size: root.width, root.height/5
 
-        MDTextField:
-            id : email
-            multiline: False
+            MDLabel:
+                text: "Email"
+                font_size: 15
 
-        MDLabel:
-            text: "Password"
-            font_size: 15
+            MDTextField:
+                id : email
+                multiline: False
+                write_tab: False
 
-        MDTextField:
-            id: password  
-            multiline: False
-            password: True
+        MDBoxLayout:
+            orientation: "vertical"
+            padding: 0, 10 #w,h
+            size: root.width, root.height/5
+
+            MDLabel:
+                text: "Password"
+                font_size: 15
+
+            MDTextField:
+                id: password  
+                multiline: False
+                password: True
+                write_tab: False
+                on_text_validate: root. btn_clicked()
+        
         
         MDRaisedButton:
             on_press: root.btn_clicked()
             text: "Login"
             halign: "center"
+            focusable: True
         
         MDGridLayout:
             cols: 2
@@ -57,6 +75,9 @@
             MDLabel:   
                 text: "[u][ref=create]Create Account[/ref][/u]"
                 markup: True
-                on_ref_press: root.create_account()
+                # on_ref_press: root.create_account()
                 color: 0.3,0.5,1,1
                 halign: "center"
+                on_ref_press: 
+                    app.root.current = "CreateAccount"
+                    root.manager.transition.direction = "left"

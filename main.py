@@ -1,11 +1,17 @@
-from kivymd.app import MDApp
-
+from screens.create_account_screen import CreateAccountScreen
 from screens.welcome_screen import WelcomeScreen
+from kivymd.app import MDApp
+from kivy.uix.screenmanager import ScreenManager
+from kivy.lang import Builder
+
+
+class WindowManager(ScreenManager):
+    pass
 
 
 class TransformationTrackerApp(MDApp):
     def build(self):
-        return WelcomeScreen()
+        return Builder.load_file("styles/main.kv")
 
 
 if __name__ == "__main__":

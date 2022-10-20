@@ -1,0 +1,103 @@
+<CreateAccountScreen>    
+    name: "CreateAccount"
+    # width: 500
+    # height: 700
+
+    # Component ids 
+    email: email
+    password1: password1
+    password2: password2
+    first_name: first_name
+    last_name: last_name
+
+
+    MDBoxLayout:
+        orientation: "vertical"
+        padding: 50, 50 #w,h
+        size: root.width, root.height
+
+
+        MDLabel:
+            text:"Create Account"
+            font_size: 30
+            halign: "center"
+
+        MDBoxLayout:
+            orientation: "vertical"
+            padding: 0, 10 #w,h
+            size: root.width, root.height/5
+
+            MDLabel:
+                text: "Email"
+                font_size: 15
+
+            MDTextField:
+                id : email
+                multiline: False
+                write_tab: False
+
+        MDBoxLayout:
+            orientation: "vertical"
+            padding: 0, 10 #w,h
+            size: root.width, root.height/5
+
+            MDLabel:
+                text: "Password"
+                font_size: 15
+
+            MDTextField:
+                id: password1  
+                multiline: False
+                password: True
+                write_tab: False
+            
+
+        MDBoxLayout:
+            orientation: "vertical"
+            padding: 0, 10 #w,h
+            size: root.width, root.height/5
+
+            MDLabel:
+                text: "Re-Enter Password"
+                font_size: 15
+
+            MDTextField:
+                id : password2
+                multiline: False
+                password: True
+                write_tab: False
+
+        MDBoxLayout:
+            orientation: "vertical"
+            padding: 0, 10 #w,h
+            size: root.width, root.height/5
+
+            MDLabel:
+                text: "First Name"
+                font_size: 15
+
+            MDTextField:
+                id : first_name
+                multiline: False
+                write_tab: False
+
+        MDBoxLayout:
+            orientation: "vertical"
+            padding: 0, 10 #w,h
+            size: root.width, root.height/5
+
+            MDLabel:
+                text: "Last Name"
+                font_size: 15
+
+            MDTextField:
+                id : last_name
+                multiline: False
+                write_tab: False
+
+        MDRaisedButton:
+            text: "Submit"
+            halign: "center"
+            on_press: 
+                app.root.current = root.btn_clicked()
+                root.manager.transition.direction = "right"
