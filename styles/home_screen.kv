@@ -1,0 +1,40 @@
+<HomeScreen>
+    name: "Home"
+
+    appbar: appbar
+    
+    MDBoxLayout:
+        orientation: "vertical"
+            
+        MDTopAppBar:
+            id: appbar
+            md_bg_color: 1,1,1,1
+            title: "Transformation Tracker"
+            specific_text_color: 0,0,0,1
+            elevation: 0                
+            # left_action_items:[["chevron-left", lambda x: x, "Back"]]
+
+        MDBoxLayout:
+            orientation: "vertical"
+
+            MDLabel:
+                text: "Something"
+                halign: "center"
+
+        MDBottomNavigation:
+
+            MDBottomNavigationItem:
+                name: "Dashboard"
+                icon: "view-dashboard-outline"
+
+            MDBottomNavigationItem:
+                name: "History"
+                icon: "clipboard-text-clock-outline"
+
+            MDBottomNavigationItem:
+                name: "Stats"
+                icon: "chart-line"
+
+            MDBottomNavigationItem:
+                name: "Settings"        
+                icon: "cog-outline"

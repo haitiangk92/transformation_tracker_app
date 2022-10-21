@@ -1,5 +1,6 @@
 from screens.create_account_screen import CreateAccountScreen
 from screens.login_screen import LoginScreen
+from screens.home_screen import HomeScreen
 from kivymd.app import MDApp
 from kivy.uix.screenmanager import ScreenManager
 from kivy.lang import Builder
