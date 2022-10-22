@@ -1,6 +1,7 @@
 from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
 from kivy.lang import Builder
+from kivymd.toast import toast
 
 
 class LoginScreen(Screen):
@@ -16,6 +17,8 @@ class LoginScreen(Screen):
         print(f"Email: {self.email.text}\nPassword: {self.password.text}\n")
         self.email.text = ""
         self.password.text = ""
+
+        toast("Login Successful")
 
     def create_account(self):
         print("Create Account")

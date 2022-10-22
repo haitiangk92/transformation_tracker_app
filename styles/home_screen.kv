@@ -1,40 +1,56 @@
 <HomeScreen>
     name: "Home"
+    # history: history
+    # appbar: appbar
 
-    appbar: appbar
-    
-    MDBoxLayout:
-        orientation: "vertical"
+    # MDBoxLayout:
+    #     orientation: "vertical"
             
-        MDTopAppBar:
-            id: appbar
-            md_bg_color: 1,1,1,1
-            title: "Transformation Tracker"
-            specific_text_color: 0,0,0,1
-            elevation: 0                
-            # left_action_items:[["chevron-left", lambda x: x, "Back"]]
+    #     MDTopAppBar:
+    #         id: appbar
+    #         md_bg_color: 1,1,1,1
+    #         title: "Transformation Tracker"
+    #         specific_text_color: 0,0,0,1
+    #         elevation: 0                
+    #         # left_action_items:[["chevron-left", lambda x: x, "Back"]]
 
-        MDBoxLayout:
-            orientation: "vertical"
+    MDBottomNavigation:
+        md_bg_color: 0.1,0.1,0.1,1
+        
+
+        MDBottomNavigationItem:
+            name: "Dashboard"
+            icon: "view-dashboard-outline"
+            text: "Dashboard"
+
+            Dashboard:
+                size: root.width, root.height
+
+
+        MDBottomNavigationItem:            
+            name: "History"
+            icon: "clipboard-text-clock-outline"
+            text: "History"
+
+            History:
+                size: root.width, root.height
+
+
+        MDBottomNavigationItem:
+            name: "Stats"
+            icon: "chart-line"
+            text: "Stats"
 
             MDLabel:
-                text: "Something"
+                text: "Stats"
                 halign: "center"
 
-        MDBottomNavigation:
 
-            MDBottomNavigationItem:
-                name: "Dashboard"
-                icon: "view-dashboard-outline"
+        MDBottomNavigationItem:
+            name: "Settings"        
+            icon: "cog-outline"
+            text: "Settings"
 
-            MDBottomNavigationItem:
-                name: "History"
-                icon: "clipboard-text-clock-outline"
-
-            MDBottomNavigationItem:
-                name: "Stats"
-                icon: "chart-line"
-
-            MDBottomNavigationItem:
-                name: "Settings"        
-                icon: "cog-outline"
+            MDLabel:
+                text: "Settings"
+                halign: "center"
