@@ -1,56 +1,51 @@
-<HomeScreen>
-    name: "Home"
-    # history: history
-    # appbar: appbar
+#:import NavDashboard    nav_screens.dashboard
+#:import NavHistory      nav_screens.history
+#:import NavStats        nav_screens.stats
+#:import NavSettings     nav_screens.settings
 
-    # MDBoxLayout:
-    #     orientation: "vertical"
-            
-    #     MDTopAppBar:
-    #         id: appbar
-    #         md_bg_color: 1,1,1,1
-    #         title: "Transformation Tracker"
-    #         specific_text_color: 0,0,0,1
-    #         elevation: 0                
-    #         # left_action_items:[["chevron-left", lambda x: x, "Back"]]
+#:set dashboard_txt "Dashboard"
+#:set history_txt   "History" 
+#:set stats_txt     "Stats" 
+#:set settings_txt  "Settings" 
+
+<HomeScreen>:
+    name: "Home"
 
     MDBottomNavigation:
         md_bg_color: 0.1,0.1,0.1,1
         
 
         MDBottomNavigationItem:
-            name: "Dashboard"
+            name: dashboard_txt
             icon: "view-dashboard-outline"
-            text: "Dashboard"
+            text: dashboard_txt
 
-            Dashboard:
-                size: root.width, root.height
+            NavDashboard:
+                # size: root.width, root.height
 
 
         MDBottomNavigationItem:            
-            name: "History"
+            name: history_txt
             icon: "clipboard-text-clock-outline"
-            text: "History"
+            text: history_txt
 
-            History:
+            NavHistory:
                 size: root.width, root.height
 
 
         MDBottomNavigationItem:
-            name: "Stats"
+            name: stats_txt
             icon: "chart-line"
-            text: "Stats"
+            text: stats_txt
 
-            MDLabel:
-                text: "Stats"
-                halign: "center"
+            NavStats:
+                size: root.width, root.height
 
 
         MDBottomNavigationItem:
-            name: "Settings"        
+            name: settings_txt        
             icon: "cog-outline"
-            text: "Settings"
+            text: settings_txt
 
-            MDLabel:
-                text: "Settings"
-                halign: "center"
+            NavSettings:
+                size: root.width, root.height

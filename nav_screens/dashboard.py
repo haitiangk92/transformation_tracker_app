@@ -3,7 +3,7 @@ from kivy.properties import ObjectProperty
 from kivy.lang import Builder
 
 
-class Dashboard(Widget):
+class NavDashboard(Widget):
 
     # kv file loader
     Builder.load_file("styles/dashboard.kv")
