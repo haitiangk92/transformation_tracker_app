@@ -1,10 +1,8 @@
-from cProfile import label
 from pprint import pprint
 from kivy.uix.widget import Widget
 from kivy.properties import ObjectProperty
 from kivy.lang import Builder
-from kivymd.uix.card import MDCard, MDSeparator
-from kivymd.uix.gridlayout import MDGridLayout
+from kivymd.uix.card import MDCard
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.label import MDLabel
 from kivymd.uix.list import MDList, OneLineListItem
@@ -106,10 +104,10 @@ class NavDashboard(Widget):
         for workout in self.workouts:
             self.last_session.ids.list_id.add_widget(
                 MDExpansionPanel(
-                    icon="dumbbell",
+                    icon="",
                     content=WorkoutDesc(workout=self.workouts[workout]),
                     panel_cls=MDExpansionPanelOneLine(
-                        text=workout
+                        text=f"   {workout}"
                     )
                 )
             )
