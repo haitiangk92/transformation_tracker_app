@@ -1,0 +1,2 @@
+(<nav_screens.dashboard.NavDashboard object at 0x7fa9f93d2660>, <WeakProxy to <kivymd.uix.label.label.MDLabel object at 0x7fa9f93a2ba0>>)
+Hello Emmanuel

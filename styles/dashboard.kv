@@ -1,100 +1,128 @@
-<ChartLabel@MDLabel>:
+<WorkoutDesc>:
+    # ids
+    header: header
+    set: sets
+
+    # adaptive_height: True
+    orientation: "vertical"
+    md_bg_color: [0.97, 0.97, 0.97, 1]
     size_hint_y: None
-    height: 50
+    height: self.minimum_height
+    padding: 25
+    
+
+    MDBoxLayout:
+        id: header
+
+    MDSeparator:
+
+    MDGridLayout:
+        id: sets
+        size_hint_y: None
+        height: self.minimum_height
+        # spacing: 2
+        # md_bg_color: [0.95, 0.95, 0.95, 1]
+
+    # padding: 10
+
+<DashboardCard>:
+    # root variables
+    title: "NO TITLE"
+
+    # ids
+    label_id: label_id
+    list_id: list_id
+
+    # Card attributes
+    orientation: "vertical"
+    padding: 5
+    size_hint_y: None
+    height: self.minimum_height
+    shadow_offset: 0,2
+    elevation: 2
+    
+    MDLabel:
+        id: label_id
+        padding: 0, 10
+        text: str(root.title)
+        halign: "center"
+        # md_bg_color: 0.5,0.5,0.5,1
+        font_size: 25
+        size_hint_y: None
+        text_size: self.size
+        adaptive_height: True
+        valign: "top"
+
+    # MDSeparator:
+    #     padding: 0
+
+    MDList:
+        id: list_id
 
 
 <NavDashboard>:
     # ids
-    # user_first_name: user_first_name
-    # last_workout_date: last_workout_date
+    greeting: greeting
+    scroll_layout: scroll_layout
+    last_session: last_session
+    personal_records: personal_records
+    blank_space: blank_space
+    
+    MDScreen:
+        # padding: 100
 
-    # variables
-    #:set user_first_name "Emmanuel"
-    #:set last_workout_date "1/1/2022"
-
-
-    MDScrollView:
-        always_overscroll: True
-        size: root.width, root.height
-        do_scroll_x: False
+        MDFloatingActionButton:
+            icon: "plus"
+            type: "standard"
+            pos_hint: {"center_x": 4.5,"center_y": .5}
+            # size_hint: None,None
+            # width: root.width/10
+            # height: self.width
+            # width: root.width
+            elevation: 3
+            # md_bg_color: 0,0,0,1
+            # padding: 20, 30
+            # halign: "right"
 
         MDBoxLayout:
             orientation: "vertical"
             # padding: 50, 50 #w,h
-            size_hint_y: None
-            height: root.height
+            size_hint: None, None
+            size: root.size
             elevation: 2
+            # md_bg_color: 0,0,0,1
+            
+            
 
             MDLabel:
-                # md_bg_color: 0,0,0,1
-                text: f"Hello {user_first_name}"
+                id: greeting
+                # text: "GREETING"
                 padding: 20, 30
                 bold: True
                 font_size: 36
                 text_size: self.size
-                # texture_size: self.text_size 
-                # color: 0,.7,1,1 
-                # halign: "center"
                 valign: "top"
                 adaptive_height: True
 
-            MDBoxLayout:
-                orientation: "vertical"
-                md_bg_color: 0.9,0.9,0.9,1
-                padding: 20, 0
-                # adaptive_height: True
-                # size_hint_y: None
-                # height: root.height
+            MDScrollView:
+                always_overscroll: True
+                do_scroll_x: False
 
-                ChartLabel:
-                    text: f"Last Workout: {last_workout_date}"
+                MDBoxLayout:
+                    id: scroll_layout
+                    orientation: "vertical"
+                    padding: 25
+                    size_hint_y: None
+                    size: self.parent.size
+                    spacing: 15
 
-                MDGridLayout:
-                    cols : 6
-                    # adaptive_height: True
+                    DashboardCard:
+                        id: last_session
+                        title: "Last Session"
 
-                    ChartLabel:
-                        text: "Exersize"
-
-                    ChartLabel: 
-                        text: "Set1"
-
-                    ChartLabel: 
-                        text: "Set2"
-
-                    ChartLabel: 
-                        text: "Set3"
-
-                    ChartLabel: 
-                        text: "Set4"
-                        
-                    ChartLabel: 
-                        text: "Set5"
-                        
-                    ChartLabel: 
-                        text: "Bench Press"
-
-                    ChartLabel: 
-                        text: "145lbs/5reps"
-
-                    ChartLabel: 
-                        text: "145lbs/5reps"
-
-                    ChartLabel: 
-                        text: "145lbs/5reps"
-
-                    ChartLabel: 
-                        text: "145lbs/5reps"
-
-                    ChartLabel: 
-                        text: "145lbs/5reps"                        
-                            
-    MDFloatingActionButton:
-        icon: "plus"
-        # padding: 20, 30
-        # halign: "right"
+                    DashboardCard:
+                        id: personal_records
+                        title: "Personal Records"
                     
-
-
-
-            
+                    Widget:
+                        id: blank_space 
