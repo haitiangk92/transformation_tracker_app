@@ -2,17 +2,7 @@
 
 <PersonalRecord>:
     # ids
-    # workout_name: workout_name
-    # workout_max: workout_max
     label: label
-
-    # atttributes
-    md_bg_color: .9, .9, .9, 1
-    # size_hint_x: None
-    # width: root.width
-            
-    # PRLabel:
-    #     id: workout_name
 
     PRMax:
         # attributes
@@ -20,9 +10,6 @@
 
         MDLabel:
             id: label
-            # halight: "right"
-            # adaptive_height: True
-            # text_size: self.size
         
 
 <WorkoutDesc>:
@@ -70,8 +57,6 @@
         text: str(root.title)
         halign: "center"
         font_size: 25
-        # size_hint_y: None
-        # text_size: self.size
         adaptive_height: True
         valign: "top"
 
@@ -85,6 +70,7 @@
     scroll_layout: scroll_layout
     last_session: last_session
     personal_records: personal_records
+    option_3: option_3
 
     # variables
     fab_distance: 30
@@ -93,9 +79,7 @@
         MDBoxLayout:
             orientation: "vertical"
             size_hint: None, None
-            # size: root.size
-            width: root.width
-            height: root.height
+            size: root.size
             elevation: 2
             spacing: 5
 
@@ -125,6 +109,10 @@
                     DashboardCard:
                         id: personal_records
                         title: "Personal Records"
+
+                    DashboardCard:
+                        id: option_3
+                        title: "Option 3"
                     
                     Widget:
 

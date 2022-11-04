@@ -6,24 +6,35 @@ from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.label import MDLabel
 from kivymd.uix.expansionpanel import MDExpansionPanel, MDExpansionPanelOneLine
 from kivymd.uix.list import OneLineRightIconListItem, IRightBody, OneLineListItem
+from kivymd.uix.dialog import MDDialog
 
 from pprint import pprint
+from datetime import datetime
 
 EXAMPLE_WORKOUTS = {
     "Bench Presses": {
+        "type": "Weight",
         "reps": [5, 5, 5, 5, 5],
         "weight": [135, 140, 145, 140, 135],
-        "slow reps": [False, False, False, False, False]
+        "slow_reps": [False, False, False, False, False]
     },
     "T-Curls": {
+        "type": "Weight",
         "reps": [10, 10, 10],
         "weight": [155, 165, 155],
-        "slow reps": [False, False, False]
+        "slow_reps": [False, False, False]
     },
     "Dips": {
+        "type": "Body",
         "reps": [10, 10, 10],
         "weight": [225, 225, 225],
-        "slow reps": [False, False, False]
+        "slow_reps": [False, False, False]
+    },
+    "Swimming": {
+        "type": "Cardio",
+        "reps": [20],
+        "weight": None,
+        "slow_reps": None
     }
 }
 
@@ -48,9 +59,11 @@ class PersonalRecord(OneLineRightIconListItem):
             return
 
         name, meta = workout
+        weights = meta['weight']
 
         self.text = name
-        label.text = str(max(meta['weight']))
+        label.text = str(
+            max(meta['reps']) if not weights else str(max(weights)) + " lbs")
 
 
 class WorkoutDesc(MDBoxLayout):
@@ -66,6 +79,8 @@ class WorkoutDesc(MDBoxLayout):
             header.add_widget(MDLabel(text="No Workout"))
             return
 
+        workout.pop("type")
+
         for key in workout.keys():
             self.add_new_label(header, key.title())
 
@@ -73,7 +88,9 @@ class WorkoutDesc(MDBoxLayout):
 
         for i in range(len(workout[list(workout.keys())[0]])):
             for key in workout.keys():
-                self.add_new_label(sets, str(workout[key][i]))
+                workout_meta = workout[key]
+                self.add_new_label(
+                    sets, str(None if not workout_meta else workout_meta[i]))
 
     def add_new_label(self, widget, string):
         added_label = MDLabel(
@@ -91,6 +108,24 @@ class DashboardCard(MDCard):
     '''DASHBOARD CARD'''
 
 
+class Workout:
+    def __init__(self, name):
+        self.name - name
+
+
+class WorkoutSession:
+    def __init__(self):
+        self.date = datetime.today().strftime()
+        self.workouts = []
+
+    def add_workout(self, workout):
+        self.workouts.append(workout)
+
+    def close_session(self):
+        # Push session to db
+        pass
+
+
 class NavDashboard(Widget):
     '''NAV DASHBOARD'''
 
@@ -104,6 +139,10 @@ class NavDashboard(Widget):
     greeting = ObjectProperty(None)
     last_session = ObjectProperty(None)
     personal_records = ObjectProperty(None)
+    option_3 = ObjectProperty(None)
+
+    def __init__(self, **kwargs):
+        super(NavDashboard, self).__init__(**kwargs)
 
     def on_greeting(self, *args):
         self.greeting.text = f"Hello {self.username}"
@@ -124,18 +163,27 @@ class NavDashboard(Widget):
 
     def on_personal_records(self, *args):
         list_id = self.personal_records.ids.list_id
-        limit = 4
+        limit = 3
 
-        for i in range(3):
+        workout_list = list(self.workouts.items())
+        workout_list.sort()
+
+        for i in range(limit):
             list_id.add_widget(
                 PersonalRecord(
-                    workout=list(self.workouts.items())[i]
+                    workout=workout_list[i]
                 )
             )
 
-        if len(self.workouts) > 2:
+        if len(self.workouts) > limit:
             list_id.add_widget(
                 OneLineListItem(
                     text="See More ..."
                 )
             )
+
+    # def add_workout(self):
+        # pass
+
+    # def add_weigh_in(self):
+        # pass
