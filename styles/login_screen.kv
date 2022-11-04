@@ -1,104 +1,86 @@
-<LoginScreen>    
+# #:kivy !
+
+<LinkLabel>:
+    markup: True 
+    color: 0.3, 0.5, 1, 1
+    halign: "center"
+
+<LoginScreen>:
     name: "Login"
 
-    # Component ids 
+    # ids 
     email: email
     password: password
+        
+    MDBoxLayout:
+        orientation: "vertical"
+        padding: 25, 25 #w,h
+        size_hint: 1, None
+        height: root.height
 
-    AnchorLayout:
-        anchor_y: "top"
-            
         MDBoxLayout:
-            # md_bg_color: .2,.4,1,1
             orientation: "vertical"
-            padding: 25, 25 #w,h
-            size_hint: 1, None
-            # width: root.width
-            height: self.minimum_height
-            # size: 500, 700
+            padding: 0, 50 #w,h
+            size_hint_y: None
+            height: 300
 
-            MDBoxLayout:
-                orientation: "vertical"
-                padding: 0, 50 #w,h
-                size_hint_y: None
-                height: 300
-                # md_bg_color: 1,.5,1,1
+            MDSmartTile:
+                radius: 24
+                box_radius: 0, 0, 24, 24
+                box_color: 1, 1, 1, .2
+                source: "assets/muscles.png"
+                pos_hint: { "center_x": .5, "center_y": .5 }
+                size_hint: None, None
+                size: 150, 150
 
-                MDSmartTile:
-                    radius: 24
-                    box_radius: [0, 0, 24, 24]
-                    box_color: 1, 1, 1, .2
-                    source: "assets/muscles.png"
-                    pos_hint: {"center_x": .5, "center_y": .5}
-                    size_hint: None, None
-                    size: "150dp", "150dp"
-
-                MDLabel:
-                    text:"Transformation Tracker"
-                    font_size: 30
-                    halign: "center"
-
-            MDBoxLayout:
-                orientation: "vertical"
-                # padding: 0, 20 #w,h
-                size_hint_y: None
-                height: 80
-
-                MDLabel:
-                    text: "Email"
-                    font_size: 15
-
-                MDTextField:
-                    id : email
-                    multiline: False
-                    write_tab: False
-
-            MDBoxLayout:
-                orientation: "vertical"
-                # padding: 0, 20 #w,h
-                size_hint_y: None
-                height: 80
-
-                MDLabel:
-                    text: "Password"
-                    font_size: 15
-
-                MDTextField:
-                    id: password  
-                    multiline: False
-                    password: True
-                    write_tab: False
-                    on_text_validate: root. btn_clicked()
-            
-            
-            MDRectangleFlatButton:
-                text: "Login"
+            MDLabel:
+                text:"Transformation Tracker"
+                font_size: 30
                 halign: "center"
-                focusable: True
-                pos_hint: {'center_x': .5,'center_y': .5}
-                on_release: 
-                    root.btn_clicked()
-                    app.root.current = "Home"
-                    root.manager.transition.direction = "up"
 
-            MDBoxLayout:
-                padding: 0, 10 #w,h
-                size_hint_y: None
-                height: 100
+        MDBoxLayout:
+            orientation: "vertical"
+            size_hint_y: None
+            height: 80
 
-                MDLabel:   
-                    text: "[u][ref=forgot]Forgot Password[/ref][/u]"
-                    markup: True
-                    on_ref_press: root.forgot_password()
-                    color: 0.3,0.5,1,1
-                    halign: "center"
+            MDTextField:
+                id : email
+                hint_text: "Email"
+                multiline: False
+                write_tab: False
 
-                MDLabel:   
-                    text: "[u][ref=create]Create Account[/ref][/u]"
-                    markup: True
-                    # on_ref_press: root.create_account()
-                    color: 0.3,0.5,1,1
-                    halign: "center"
-                    on_ref_press: 
-                        app.root.current = "CreateAccount"
-                        root.manager.transition.direction = "left"
+            MDTextField:
+                id: password  
+                hint_text: "Password"
+                multiline: False
+                write_tab: False
+                
+                password: True
+                on_text_validate: root.btn_clicked()
+        
+        MDRectangleFlatButton:
+            text: "Login"
+            halign: "center"
+            focusable: True
+            pos_hint: { 'center_x': .5, 'center_y': .5 }
+            on_release: 
+                root.btn_clicked()
+                app.root.current = "Home"
+                root.manager.transition.direction = "up"
+
+        MDBoxLayout:
+            padding: 0, 10 #w,h
+            size_hint_y: None
+            height: 100
+
+            LinkLabel:
+                text: "[u][ref=forgot]Forgot Password[/ref][/u]"
+                on_ref_press: root.forgot_password()
+
+            LinkLabel:
+                text: "[u][ref=create]Create Account[/ref][/u]"
+                on_ref_press: 
+                    app.root.current = "CreateAccount"
+                    root.manager.transition.direction = "left"
+
+        Widget:

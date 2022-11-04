@@ -1,7 +1,7 @@
-<CreateAccountScreen>    
+# #:kivy !
+
+<CreateAccountScreen>:    
     name: "CreateAccount"
-    # width: 500
-    # height: 700
 
     # Component ids 
     email: email
@@ -13,8 +13,9 @@
 
     MDBoxLayout:
         orientation: "vertical"
-        padding: 50, 50 #w,h
-        size: root.width, root.height
+        padding: 25, 25 #w,h
+        size_hint: None, None
+        size: root.size
 
 
         MDLabel:

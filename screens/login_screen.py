@@ -2,6 +2,11 @@ from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
 from kivy.lang import Builder
 from kivymd.toast import toast
+from kivymd.uix.label import MDLabel
+
+
+class LinkLabel(MDLabel):
+    pass
 
 
 class LoginScreen(Screen):

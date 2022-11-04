@@ -1,3 +1,5 @@
+# #:kivy !
+
 #:import NavDashboard    nav_screens.dashboard
 #:import NavHistory      nav_screens.history
 #:import NavStats        nav_screens.stats
@@ -21,10 +23,10 @@
             text: dashboard_txt
 
             NavDashboard:
-                # size: root.width, root.height
+                size: root.width, root.height
 
 
-        MDBottomNavigationItem:            
+        MDBottomNavigationItem:
             name: history_txt
             icon: "clipboard-text-clock-outline"
             text: history_txt
