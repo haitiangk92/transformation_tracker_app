@@ -144,6 +144,17 @@ class NavDashboard(Widget):
     def __init__(self, **kwargs):
         super(NavDashboard, self).__init__(**kwargs)
 
+        self.speed_dial_data = {
+            "Weight In": [
+                "scale"
+                "on_press", lambda x: self.add_weigh_in()
+            ],
+            "Add Workout": [
+                "dumbbell"
+                "on_press", lambda x: self.add_workout()
+            ]
+        }
+
     def on_greeting(self, *args):
         self.greeting.text = f"Hello {self.username}"
 
@@ -182,8 +193,8 @@ class NavDashboard(Widget):
                 )
             )
 
-    # def add_workout(self):
-        # pass
+    def add_workout(self):
+        print("Adding Workout")
 
-    # def add_weigh_in(self):
-        # pass
+    def add_weigh_in(self):
+        print("Weighing in")
