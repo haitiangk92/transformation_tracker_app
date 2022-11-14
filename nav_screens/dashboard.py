@@ -7,36 +7,16 @@ from kivymd.uix.label import MDLabel
 from kivymd.uix.expansionpanel import MDExpansionPanel, MDExpansionPanelOneLine
 from kivymd.uix.list import OneLineRightIconListItem, IRightBody, OneLineListItem
 from kivymd.uix.dialog import MDDialog
+from kivymd.uix.button import MDFlatButton
+
+from widgets.workout_dialog import *
+from widgets.workout import *
+
 
 from pprint import pprint
 from datetime import datetime
+from enum import Enum
 
-EXAMPLE_WORKOUTS = {
-    "Bench Presses": {
-        "type": "Weight",
-        "reps": [5, 5, 5, 5, 5],
-        "weight": [135, 140, 145, 140, 135],
-        "slow_reps": [False, False, False, False, False]
-    },
-    "T-Curls": {
-        "type": "Weight",
-        "reps": [10, 10, 10],
-        "weight": [155, 165, 155],
-        "slow_reps": [False, False, False]
-    },
-    "Dips": {
-        "type": "Body",
-        "reps": [10, 10, 10],
-        "weight": [225, 225, 225],
-        "slow_reps": [False, False, False]
-    },
-    "Swimming": {
-        "type": "Cardio",
-        "reps": [20],
-        "weight": None,
-        "slow_reps": None
-    }
-}
 
 EXAMPLE_USERNAME = "User"
 
@@ -58,12 +38,11 @@ class PersonalRecord(OneLineRightIconListItem):
             self.text = "No Workout"
             return
 
-        name, meta = workout
-        weights = meta['weight']
+        weights = workout.weight
 
-        self.text = name
-        label.text = str(
-            max(meta['reps']) if not weights else str(max(weights)) + " lbs")
+        self.text = workout.name
+        label.text = str(max(workout.reps)
+                         if not weights else str(max(weights)) + " lbs")
 
 
 class WorkoutDesc(MDBoxLayout):
@@ -79,18 +58,24 @@ class WorkoutDesc(MDBoxLayout):
             header.add_widget(MDLabel(text="No Workout"))
             return
 
-        workout.pop("type")
+        workout_dict = workout.__dict__
+        temp_name = workout_dict.pop("name")
+        workout_dict.pop("workout_type")
 
-        for key in workout.keys():
+        for key in workout_dict.keys():
             self.add_new_label(header, key.title())
 
-        sets.cols = len(workout.keys())
+        sets.cols = len(workout_dict.keys())
 
-        for i in range(len(workout[list(workout.keys())[0]])):
-            for key in workout.keys():
-                workout_meta = workout[key]
+        for i in range(len(workout.reps)):
+            for key in workout_dict.keys():
+                workout_meta = workout_dict[key]
                 self.add_new_label(
-                    sets, str(None if not workout_meta else workout_meta[i]))
+                    sets,
+                    str(None if not workout_meta else workout_meta[i])
+                )
+
+        workout_dict["name"] = temp_name
 
     def add_new_label(self, widget, string):
         added_label = MDLabel(
@@ -108,22 +93,48 @@ class DashboardCard(MDCard):
     '''DASHBOARD CARD'''
 
 
-class Workout:
-    def __init__(self, name):
-        self.name - name
-
-
 class WorkoutSession:
     def __init__(self):
         self.date = datetime.today().strftime()
         self.workouts = []
 
-    def add_workout(self, workout):
+    def add_workout_dialog(self, workout):
         self.workouts.append(workout)
 
     def close_session(self):
         # Push session to db
         pass
+
+
+EXAMPLE_WORKOUTS = [
+    Workout(
+        "Bench Presses",
+        workout_type=WorkoutType.WEIGHT,
+        reps=[5, 5, 5, 5, 5],
+        weight=[135, 140, 145, 140, 135],
+        slow_reps=[False, False, False, False, False]
+    ),
+    Workout(
+        "T-Curls",
+        WorkoutType.WEIGHT,
+        reps=[10, 10, 10],
+        weight=[155, 165, 155],
+        slow_reps=[False, False, False]
+    ),
+    Workout(
+        "Dips",
+        workout_type=WorkoutType.BODY,
+        reps=[10, 10, 10],
+        weight=[225, 225, 225],
+        slow_reps=[False, False, False]
+    ),
+    Workout(
+        "Swimming",
+        workout_type=WorkoutType.CARDIO,
+        reps=[20],
+        slow_reps=None
+    )
+]
 
 
 class NavDashboard(Widget):
@@ -135,6 +146,7 @@ class NavDashboard(Widget):
     last_session_workouts = EXAMPLE_WORKOUTS
     workouts = EXAMPLE_WORKOUTS
     username = EXAMPLE_USERNAME
+    current_session = []
 
     greeting = ObjectProperty(None)
     last_session = ObjectProperty(None)
@@ -146,12 +158,14 @@ class NavDashboard(Widget):
 
         self.speed_dial_data = {
             "Weight In": [
-                "scale"
-                "on_press", lambda x: self.add_weigh_in()
+                "scale-bathroom",
+                "on_press",
+                self.add_weigh_in_dialog
             ],
             "Add Workout": [
-                "dumbbell"
-                "on_press", lambda x: self.add_workout()
+                "dumbbell",
+                "on_press",
+                self.add_workout_dialog
             ]
         }
 
@@ -163,11 +177,11 @@ class NavDashboard(Widget):
             self.last_session.ids.list_id.add_widget(
                 MDExpansionPanel(
                     icon="",
-                    content=WorkoutDesc(
-                        workout=self.last_session_workouts[workout]
-                    ),
                     panel_cls=MDExpansionPanelOneLine(
-                        text=f"   {workout}"
+                        text=f"   {workout.name}"
+                    ),
+                    content=WorkoutDesc(
+                        workout=workout
                     )
                 )
             )
@@ -176,25 +190,38 @@ class NavDashboard(Widget):
         list_id = self.personal_records.ids.list_id
         limit = 3
 
-        workout_list = list(self.workouts.items())
-        workout_list.sort()
-
         for i in range(limit):
-            list_id.add_widget(
-                PersonalRecord(
-                    workout=workout_list[i]
-                )
-            )
+            list_id.add_widget(PersonalRecord(workout=self.workouts[i]))
 
         if len(self.workouts) > limit:
-            list_id.add_widget(
-                OneLineListItem(
-                    text="See More ..."
-                )
-            )
+            list_id.add_widget(OneLineListItem(text="See More ..."))
 
-    def add_workout(self):
+    def add_workout_dialog(self, *args):
+        print("Showing Workout Dialog")
+
+        EXAMPLE_WIDGETS = [MDLabel(text=f'Test Field {x+1}') for x in range(2)]
+
+        self.dialog = MDDialog(
+            title="Add Workout",
+            type="custom",
+            content_cls=WorkoutDialogLayout(
+                widgets=EXAMPLE_WIDGETS,
+                width=self.width
+            ),
+            buttons=[
+                MDFlatButton(
+                    text="Add",
+                    on_release=self.add_workout
+                )
+            ]
+        )
+        self.dialog.open()
+
+    def add_weigh_in_dialog(self, *args):
+        print("Showing Weigh-In Dialog")
+
+    def add_workout(self, *args):
         print("Adding Workout")
 
-    def add_weigh_in(self):
-        print("Weighing in")
+    def add_weight_in(self, *args):
+        print("Adding Weight-In")

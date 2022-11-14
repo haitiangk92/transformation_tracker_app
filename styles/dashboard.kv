@@ -75,54 +75,52 @@
     # variables
     fab_distance: 30
     
-    MDScreen:
-        MDBoxLayout:
-            orientation: "vertical"
-            size_hint: None, None
-            size: root.size
-            elevation: 2
-            spacing: 5
+    MDBoxLayout:
+        orientation: "vertical"
+        size_hint: None, None
+        size: root.size
+        elevation: 2
+        spacing: 5
 
-            MDLabel:
-                id: greeting
-                padding: 20, 10
-                bold: True
-                font_size: 36
-                text_size: self.size
+        MDLabel:
+            id: greeting
+            padding: 20, 10
+            bold: True
+            font_size: 36
+            text_size: self.size
+            adaptive_height: True
+
+        MDScrollView:
+            always_overscroll: True
+            do_scroll_x: False
+
+            MDBoxLayout:
+                id: scroll_layout
+                orientation: "vertical"
+                padding: 25
                 adaptive_height: True
+                spacing: 15
 
-            MDScrollView:
-                always_overscroll: True
-                do_scroll_x: False
+                DashboardCard:
+                    id: last_session
+                    title: "Last Session"
 
-                MDBoxLayout:
-                    id: scroll_layout
-                    orientation: "vertical"
-                    padding: 25
-                    adaptive_height: True
-                    spacing: 15
+                DashboardCard:
+                    id: personal_records
+                    title: "Personal Records"
 
-                    DashboardCard:
-                        id: last_session
-                        title: "Last Session"
+                DashboardCard:
+                    id: option_3
+                    title: "Option 3"
+                
+                Widget:
 
-                    DashboardCard:
-                        id: personal_records
-                        title: "Personal Records"
-
-                    DashboardCard:
-                        id: option_3
-                        title: "Option 3"
-                    
-                    Widget:
-
-        MDFloatingActionButtonSpeedDial:
-            hint_animation: True
-            data: root.speed_dial_data
-            icon: "plus"
-            icon_size: 48
-            type: "large"
-            elevation: 2
-            x: root.width - self.width - int(root.fab_distance)
-            y: int(root.fab_distance)
-            # on_press: root.add_workout()
+    MDFloatingActionButtonSpeedDial:
+        hint_animation: True
+        data: root.speed_dial_data
+        icon: "plus"
+        icon_size: 48
+        type: "large"
+        elevation: 2
+        # x: root.width - self.width - int(root.fab_distance)
+        # y: int(root.fab_distance)

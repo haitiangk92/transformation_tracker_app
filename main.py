@@ -21,8 +21,8 @@ class TransformationTrackerApp(MDApp):
     def build(self):
         return Builder.load_file("styles/main.kv")
 
-    def on_start(self):
-        Window.size = (APP_WIDTH, APP_HEIGHT)
+    # def on_start(self):
+        # Window.size = (APP_WIDTH, APP_HEIGHT)
 
 
 if __name__ == "__main__":
