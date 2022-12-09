@@ -11,11 +11,11 @@ from kivymd.uix.button import MDFlatButton
 
 from widgets.workout_dialog import *
 from widgets.workout import *
+from widgets.circuit_dialog import *
 
 
 from pprint import pprint
 from datetime import datetime
-from enum import Enum
 
 
 EXAMPLE_USERNAME = "User"
@@ -157,6 +157,11 @@ class NavDashboard(Widget):
         super(NavDashboard, self).__init__(**kwargs)
 
         self.speed_dial_data = {
+            "Circuit Timer": [
+                "timer",
+                "on_press",
+                self.display_circuit_timer
+            ],
             "Weight In": [
                 "scale-bathroom",
                 "on_press",
@@ -199,9 +204,9 @@ class NavDashboard(Widget):
     def add_workout_dialog(self, *args):
         print("Showing Workout Dialog")
 
-        EXAMPLE_WIDGETS = [MDLabel(text=f'Test Field {x+1}') for x in range(2)]
+        EXAMPLE_WIDGETS = [MDLabel(text=f'Test Field {x+1}') for x in range(3)]
 
-        self.dialog = MDDialog(
+        self.workout_dialog = MDDialog(
             title="Add Workout",
             type="custom",
             content_cls=WorkoutDialogLayout(
@@ -215,7 +220,25 @@ class NavDashboard(Widget):
                 )
             ]
         )
-        self.dialog.open()
+        self.workout_dialog.open()
+
+    def display_circuit_timer(self, *args):
+        print("Show Timer")
+
+        EXAMPLE_WIDGETS = [MDLabel(text=f'Test Field {x+1}') for x in range(3)]
+
+        self.timer_dialog = MDDialog(
+            title="Circuit Timer",
+            type="custom",
+            content_cls=CircuitDialogLayout(),
+            # buttons=[
+            #     MDFlatButton(
+            #         text="Add",
+            #         on_release=self.add_workout
+            #     )
+            # ]
+        )
+        self.timer_dialog.open()
 
     def add_weigh_in_dialog(self, *args):
         print("Showing Weigh-In Dialog")
